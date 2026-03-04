@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:cosmetics/core/common/widgets/custom_app_images.dart';
 import 'package:cosmetics/core/helpers/app_navigator.dart';
 import 'package:cosmetics/core/helpers/extensions.dart';
 import 'package:cosmetics/core/utils/app_images.dart';
@@ -21,7 +22,6 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void _navigateToHome() {
     Future.delayed(const Duration(seconds: 5), () {
-      if (!mounted) return;
       AppNavigator.pushAndRemoveUntil(context, OnboardingScreen());
     });
   }
@@ -33,9 +33,17 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(AppImages.splashLayer1, height: 200.h, width: 200.w),
+            CustomAppImages(
+              imagePath: AppImages.splashLayer1,
+              height: 200.h,
+              width: 200.w,
+            ),
             16.h.ph,
-            Image.asset(AppImages.splashLayer2, width: 120.w, height: 46.h),
+            CustomAppImages(
+              imagePath: AppImages.splashLayer2,
+              width: 120.w,
+              height: 46.h,
+            ),
           ],
         ),
       ),

@@ -90,12 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           onPressed: () {},
                         ),
-                        CustomButton(
-                          text: 'Login',
-                          border: 60,
-                          width: 270.w,
-                          isborder: false,
-                        ),
+                        CustomButton(text: 'Login', width: 270.w),
                         Spacer(),
                         AuthSwitcherText(
                           normalText: "Don't have an account? ",

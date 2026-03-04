@@ -10,6 +10,7 @@ import 'package:cosmetics/core/theme/app_texts/app_text_styles.dart';
 import 'package:cosmetics/core/utils/app_images.dart';
 import 'package:cosmetics/core/utils/common_imports.dart';
 import 'package:cosmetics/features/auth/presentation/screens/login_screen.dart';
+import 'package:cosmetics/features/auth/presentation/screens/verify_code_screen.dart';
 import 'package:cosmetics/features/auth/presentation/widgets/auth_switcher_text.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -25,10 +26,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final nameController = TextEditingController();
   final emailController = TextEditingController();
   final confirmPasswordController = TextEditingController();
-
+  final formKey = GlobalKey<FormState>();
   bool isPasswordObscure = true;
   bool isConfirmPasswordObscure = true;
-  final formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -114,10 +115,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                         16.h.ph,
                         CustomButton(
-                          text: 'Login',
-                          border: 60,
+                          onTap: () {
+                            AppNavigator.push(context, VerifyCodeScreen());
+                          },
+                          text: 'Next',
                           width: 270.w,
-                          isborder: false,
                         ),
                         Spacer(),
                         AuthSwitcherText(
