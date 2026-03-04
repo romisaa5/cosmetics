@@ -7,7 +7,15 @@ import 'package:cosmetics/core/theme/app_colors/light_app_colors.dart';
 import 'package:cosmetics/core/theme/app_texts/app_text_styles.dart';
 
 class AccountActivatedDialog extends StatelessWidget {
-  const AccountActivatedDialog({super.key});
+  const AccountActivatedDialog({
+    super.key,
+    required this.title,
+    required this.subTitle,
+    required this.buttonTitle,
+  });
+  final String title;
+  final String subTitle;
+  final String buttonTitle;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +30,7 @@ class AccountActivatedDialog extends StatelessWidget {
             CustomAppImages(imagePath: AppIcons.done),
             SizedBox(height: 20.h),
             Text(
-              'Account Activated!',
+              title,
               style: AppTextStyles.font16SemiBold.copyWith(
                 color: LightAppColors.grey900,
               ),
@@ -30,7 +38,7 @@ class AccountActivatedDialog extends StatelessWidget {
             ),
             SizedBox(height: 10.h),
             Text(
-              'Congratulations! Your account has been successfully activated',
+              subTitle,
               style: AppTextStyles.font12Regular.copyWith(
                 color: LightAppColors.grey600,
               ),
@@ -38,7 +46,7 @@ class AccountActivatedDialog extends StatelessWidget {
             ),
             SizedBox(height: 25.h),
             CustomButton(
-              text: 'Go to home',
+              text: buttonTitle,
               onTap: () {
                 Navigator.pop(context);
               },

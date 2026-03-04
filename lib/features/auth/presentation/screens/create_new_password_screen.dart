@@ -1,31 +1,21 @@
-import 'package:cosmetics/core/common/widgets/custom_app_images.dart';
 import 'package:cosmetics/core/common/widgets/custom_button.dart';
-import 'package:cosmetics/core/common/widgets/custom_phone_field.dart';
 import 'package:cosmetics/core/common/widgets/custom_text_form_field.dart';
-import 'package:cosmetics/core/helpers/app_navigator.dart';
 import 'package:cosmetics/core/helpers/app_validators.dart';
 import 'package:cosmetics/core/helpers/extensions.dart';
-import 'package:cosmetics/core/theme/app_colors/light_app_colors.dart';
-import 'package:cosmetics/core/theme/app_texts/app_text_styles.dart';
-import 'package:cosmetics/core/utils/app_images.dart';
 import 'package:cosmetics/core/utils/common_imports.dart';
-import 'package:cosmetics/features/auth/presentation/screens/login_screen.dart';
-import 'package:cosmetics/features/auth/presentation/screens/verify_code_screen.dart';
-import 'package:cosmetics/features/auth/presentation/widgets/auth_switcher_text.dart';
+import 'package:cosmetics/features/auth/presentation/widgets/auth_header_section.dart';
 import 'package:cosmetics/features/auth/presentation/widgets/success_dialog.dart';
 
-class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({super.key});
+class CreateNewPasswordScreen extends StatefulWidget {
+  const CreateNewPasswordScreen({super.key});
 
   @override
-  State<RegisterScreen> createState() => _RegisterScreenState();
+  State<CreateNewPasswordScreen> createState() =>
+      _CreateNewPasswordScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
-  final phoneController = TextEditingController();
+class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
   final passwordContoller = TextEditingController();
-  final nameController = TextEditingController();
-  final emailController = TextEditingController();
   final confirmPasswordController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   bool isPasswordObscure = true;
@@ -33,9 +23,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   void dispose() {
-    phoneController.dispose();
-    nameController.dispose();
-    emailController.dispose();
     passwordContoller.dispose();
     confirmPasswordController.dispose();
     super.dispose();
@@ -57,32 +44,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Spacer(),
-                        CustomAppImages(
-                          imagePath: AppImages.splashLayer1,
-                          height: 52.h,
-                          width: 60.w,
-                        ),
                         40.h.ph,
-                        Text(
-                          'Create Account',
-                          style: AppTextStyles.font24Bold.copyWith(
-                            color: LightAppColors.grey900,
+                        Flexible(
+                          child: AuthHeaderSection(
+                            title: 'Create Password',
+                            subTitle:
+                                'The password should have at least 6 characters.',
                           ),
                         ),
-                        70.h.ph,
-                        AppTextFormField(
-                          labelText: 'Your Name',
-                          validator: AppValidators.name,
-                        ),
-                        38.h.ph,
-                        AppTextFormField(
-                          labelText: 'Email',
-                          validator: AppValidators.email,
-                        ),
-                        38.h.ph,
-                        CustomPhoneField(phoneController: phoneController),
-                        16.h.ph,
+                        62.h.ph,
                         AppTextFormField(
                           labelText: 'Create your password',
                           controller: passwordContoller,
@@ -124,38 +94,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             passwordContoller.text,
                           ),
                         ),
-                        16.h.ph,
+                        60.h.ph,
                         CustomButton(
-                          onTap: () {
-                            AppNavigator.push(
-                              context,
-                              VerifyCodeScreen(
-                                contact: 'your email amramer522@gmail.com',
-                                onTap: () => showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return AccountActivatedDialog(
-                                      title: 'Account Activated!',
-                                      subTitle:
-                                          'Congratulations! Your account has been successfully activated',
-                                      buttonTitle: 'Go to home',
-                                    );
-                                  },
-                                ),
-                              ),
-                            );
-                          },
-                          text: 'Next',
+                          onTap: () => showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AccountActivatedDialog(
+                                title: 'Password Created!',
+                                subTitle:
+                                    'Congratulations! Your password has been successfully created',
+                                buttonTitle: 'Return to login',
+                              );
+                            },
+                          ),
+                          text: 'Confirm',
                           width: 270.w,
                         ),
                         Spacer(),
-                        AuthSwitcherText(
-                          normalText: "Already have an account? ",
-                          actionText: "Login",
-                          onTap: () {
-                            AppNavigator.push(context, LoginScreen());
-                          },
-                        ),
                       ],
                     ),
                   ),

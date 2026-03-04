@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:cosmetics/core/common/widgets/custom_text_form_field.dart';
 import 'package:cosmetics/core/helpers/extensions.dart';
 import 'package:cosmetics/core/theme/app_colors/light_app_colors.dart';
 import 'package:cosmetics/core/theme/app_texts/app_text_styles.dart';
@@ -81,24 +82,14 @@ class _OtpFieldState extends State<OtpField> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: List.generate(widget.length, (index) {
             return Container(
-              width: 50.w,
-              height: 50.w,
+              width: 60.w,
+              height: 65.w,
               margin: EdgeInsets.symmetric(horizontal: 5.w),
-              child: TextField(
+              child: AppTextFormField(
                 controller: controllers[index],
                 focusNode: focusNodes[index],
-
                 keyboardType: TextInputType.number,
                 textAlign: TextAlign.center,
-                maxLength: 1,
-                style: TextStyle(fontSize: 24.sp),
-                decoration: InputDecoration(
-                  focusColor: LightAppColors.secondary800,
-                  counterText: '',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12.r),
-                  ),
-                ),
                 onChanged: (value) => _onChanged(index, value),
               ),
             );

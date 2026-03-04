@@ -9,6 +9,7 @@ import 'package:cosmetics/core/theme/app_colors/light_app_colors.dart';
 import 'package:cosmetics/core/theme/app_texts/app_text_styles.dart';
 import 'package:cosmetics/core/utils/app_images.dart';
 import 'package:cosmetics/core/utils/common_imports.dart';
+import 'package:cosmetics/features/auth/presentation/screens/forget_password_screen.dart';
 import 'package:cosmetics/features/auth/presentation/screens/register_screen.dart';
 import 'package:cosmetics/features/auth/presentation/widgets/auth_switcher_text.dart';
 import 'package:flutter/cupertino.dart';
@@ -25,6 +26,14 @@ class _LoginScreenState extends State<LoginScreen> {
   final passwordContoller = TextEditingController();
   bool isPasswordObscure = true;
   final formKey = GlobalKey<FormState>();
+
+  @override
+  void dispose() {
+    passwordContoller.dispose();
+    phoneController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,7 +97,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            AppNavigator.push(context, ForgetPasswordScreen());
+                          },
                         ),
                         CustomButton(text: 'Login', width: 270.w),
                         Spacer(),
