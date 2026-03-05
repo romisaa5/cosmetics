@@ -12,6 +12,7 @@ import 'package:cosmetics/core/utils/common_imports.dart';
 import 'package:cosmetics/features/auth/presentation/screens/forget_password_screen.dart';
 import 'package:cosmetics/features/auth/presentation/screens/register_screen.dart';
 import 'package:cosmetics/features/auth/presentation/widgets/auth_switcher_text.dart';
+import 'package:cosmetics/features/home/presentation/widgets/nav_bar.dart';
 import 'package:flutter/cupertino.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -101,7 +102,13 @@ class _LoginScreenState extends State<LoginScreen> {
                             AppNavigator.push(context, ForgetPasswordScreen());
                           },
                         ),
-                        CustomButton(text: 'Login', width: 270.w),
+                        CustomButton(
+                          text: 'Login',
+                          width: 270.w,
+                          onTap: () {
+                            AppNavigator.pushAndRemoveUntil(context, NavBar());
+                          },
+                        ),
                         Spacer(),
                         AuthSwitcherText(
                           normalText: "Don't have an account? ",

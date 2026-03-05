@@ -8,4 +8,5 @@ class AppImages {
   static const String notificationImage =
       'assets/images/notification_frame.png';
   static const String loginImg = 'assets/images/login_img.png';
+  static const String poster = 'assets/images/poster.png';
 }
