@@ -1,8 +1,8 @@
-import 'package:device_preview/device_preview.dart';
+import 'package:cosmetics/core/theme/app_colors/light_theme_data.dart';
+import 'package:cosmetics/views/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'my_app.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,12 +17,25 @@ void main() async {
     DeviceOrientation.portraitDown,
   ]);
 
-  runApp(
-    DevicePreview(
-      enabled: true,
-      builder: (context) {
-        return MyApp();
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ScreenUtilInit(
+      designSize: const Size(375, 812),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (_, child) {
+        return MaterialApp(
+          home: const SplashScreen(),
+          debugShowCheckedModeBanner: false,
+          theme: getLightTheme(context),
+        );
       },
-    ),
-  );
+    );
+  }
 }

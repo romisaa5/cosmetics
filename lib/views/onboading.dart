@@ -1,0 +1,152 @@
+import 'package:animate_do/animate_do.dart';
+import 'package:cosmetics/core/common/widgets/app_images.dart';
+import 'package:cosmetics/core/common/widgets/app_button.dart';
+import 'package:cosmetics/core/helpers/app_navigator.dart';
+import 'package:cosmetics/core/helpers/extensions.dart';
+import 'package:cosmetics/core/theme/app_colors/light_app_colors.dart';
+import 'package:cosmetics/core/theme/app_texts/app_text_styles.dart';
+import 'package:cosmetics/core/utils/common_imports.dart';
+import 'package:cosmetics/views/auth/login.dart';
+import 'package:cosmetics/views/models/onboarding.dart';
+import 'package:flutter/cupertino.dart';
+
+class OnboardingScreen extends StatefulWidget {
+  const OnboardingScreen({super.key});
+
+  @override
+  State<OnboardingScreen> createState() => _OnboardingScreenState();
+}
+
+class _OnboardingScreenState extends State<OnboardingScreen> {
+  final PageController _controller = PageController();
+  int currentIndex = 0;
+
+  final List<OnboardingModel> pages = [
+    OnboardingModel(
+      image: '/on_boarding1.png',
+      title: "WELCOME!",
+      description:
+          "Makeup has the power to transform your mood and empowers you to be a more confident person.",
+    ),
+    OnboardingModel(
+      image: '/on_boarding2.png',
+      title: "SEARCH & PICK",
+      description:
+          "We have dedicated set of products and routines hand picked for every skin type.",
+    ),
+    OnboardingModel(
+      image: '/on_boarding3.png',
+      title: "PUSH NOTIFICATIONS",
+      description: "Allow notifications for new makeup & cosmetics offers.",
+    ),
+  ];
+
+  void nextPage(BuildContext context) {
+    if (currentIndex < pages.length - 1) {
+      _controller.nextPage(
+        duration: const Duration(milliseconds: 400),
+        curve: Curves.easeInOut,
+      );
+    } else {
+      AppNavigator.pushAndRemoveUntil(context, LoginView());
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          children: [
+            Align(
+              alignment: Alignment.topRight,
+              child: TextButton(onPressed: () {}, child: const Text("Skip")),
+            ),
+            Expanded(
+              child: PageView.builder(
+                controller: _controller,
+                itemCount: pages.length,
+                onPageChanged: (index) {
+                  setState(() {
+                    currentIndex = index;
+                  });
+                },
+                itemBuilder: (context, index) {
+                  final page = pages[index];
+                  return Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 40.h),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Spacer(flex: 1),
+                        BounceIn(
+                          duration: const Duration(milliseconds: 800),
+                          child: AppImages(
+                            imagePath: page.image,
+                            height: 260.h,
+                          ),
+                        ),
+                        24.h.ph,
+                        FadeInDown(
+                          duration: const Duration(milliseconds: 500),
+                          child: Text(
+                            page.title,
+                            style: AppTextStyles.font16Bold.copyWith(
+                              color: LightAppColors.grey900,
+                            ),
+                          ),
+                        ),
+                        10.h.ph,
+                        FadeIn(
+                          delay: const Duration(milliseconds: 300),
+                          duration: const Duration(milliseconds: 500),
+                          child: Text(
+                            page.description,
+                            textAlign: TextAlign.center,
+                            style: AppTextStyles.font16SemiBold.copyWith(
+                              color: LightAppColors.grey600,
+                            ),
+                          ),
+                        ),
+                        30.h.ph,
+                        currentIndex == pages.length - 1
+                            ? FadeInUp(
+                                duration: const Duration(milliseconds: 500),
+                                child: AppButton(
+                                  text: 'let’s start!',
+                                  isborder: false,
+                                  color: LightAppColors.primary800,
+                                  onTap: () => nextPage(context),
+                                ),
+                              )
+                            : FadeInUp(
+                                duration: const Duration(milliseconds: 500),
+                                child: CupertinoButton(
+                                  onPressed: () => nextPage(context),
+                                  child: Container(
+                                    height: 50.w,
+                                    width: 50.w,
+                                    decoration: BoxDecoration(
+                                      color: LightAppColors.primary800,
+                                      borderRadius: BorderRadius.circular(12.r),
+                                    ),
+                                    child: Icon(
+                                      Icons.arrow_forward_ios,
+                                      color: LightAppColors.white,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                        Spacer(flex: 2),
+                      ],
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
